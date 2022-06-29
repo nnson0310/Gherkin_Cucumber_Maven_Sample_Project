@@ -33,6 +33,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
+        <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-junit</artifactId>
             <version>${cucumber.version}</version>
@@ -69,6 +75,11 @@
             <artifactId>cucumber-reporting</artifactId>
             <version>3.20.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.22</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -92,7 +103,7 @@
                 <version>2.18.1</version>
                 <configuration>
                     <includes>
-                        <include>**/*/CucumberTestRunner.java</include>
+                        <include>**/*/cucumberOptions/TestRunner.java</include>
                     </includes>
                 </configuration>
             </plugin>
