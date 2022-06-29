@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -8,6 +9,9 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class FacebookSteps {
@@ -24,13 +28,41 @@ public class FacebookSteps {
     }
 
     @Given("^Input valid email or username$")
-    public void inputValidEmailOrUsername() {
-        driver.findElement(By.id("email")).sendKeys("tomanyeuem@gmail.com");
+    public void inputValidEmailOrUsername(String email) {
+        driver.findElement(By.id("email")).sendKeys(email);
     }
 
-    @Then("^Input valid password$")
-    public void inputValidPassword() {
-        driver.findElement(By.id("pass")).sendKeys("123456");
+    @Given("^Click Forgot Password link$")
+    public void clickForgotPasswordLink() {
+        driver.findElement(By.xpath("//a[text()='Forgotten password?']")).click();
+    }
+
+    @When("^Input valid email with \"([^\"]*)\"$")
+    public void inputValidEmailWith(String email) {
+        driver.findElement(By.id("email")).sendKeys(email);
+    }
+
+    @When("^Input invalid emailAddress$")
+    public void inputInvalidEmailAddress(DataTable emailTable) {
+        List<Map<String, String>> emails = emailTable.asMaps(String.class, String.class);
+        for(int i = 0; i < emails.size(); i++) {
+            driver.findElement(By.id("identify_email")).sendKeys(emails.get(i).get("emailAddress"));
+        }
+    }
+
+    @When("^Input valid password with \"([^\"]*)\"$")
+    public void inputValidPasswordWith(String password) {
+        driver.findElement(By.id("pass")).sendKeys(password);
+    }
+
+    @When("^Click search button$")
+    public void clickSearchButton() {
+        driver.findElement(By.cssSelector("button#did_submit")).click();
+    }
+
+    @Then("^\"([^\"]*)\" message is displayed$")
+    public void messageIsDisplayed(String message) {
+        Assert.assertTrue(driver.findElement(By.xpath("//div[text()='" + message + "']")).isDisplayed());
     }
 
     @Then("^Click login button$")
