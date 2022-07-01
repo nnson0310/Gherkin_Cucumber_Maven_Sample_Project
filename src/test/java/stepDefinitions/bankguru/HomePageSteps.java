@@ -18,8 +18,8 @@ public class HomePageSteps {
     }
 
 
-    @Then("^Verify homepage is displayed with message \"([^\"]*)\"$")
-    public void verifyHomepageIsDisplayedWithMessage(String message) {
-        Assert.assertTrue(homePage.isHomePageHeadingDisplayed(driver, message));
+    @Then("^Verify homepage is displayed$")
+    public void verifyHomepageIsDisplayed() {
+        Assert.assertTrue(homePage.isHomePageHeadingDisplayed(driver));
     }
 }

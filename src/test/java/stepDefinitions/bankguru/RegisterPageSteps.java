@@ -7,12 +7,15 @@ import org.openqa.selenium.WebDriver;
 import pageobjects.PageGeneratorManager;
 import pageobjects.RegisterPage;
 
+// There are two ways to share data between scenarios in cucumber BDD
+// Method 1: Using static variables
+// Method 2: Using java libraries (likes Cucumber Picocontainer...)
 public class RegisterPageSteps {
 
     WebDriver driver;
     RegisterPage registerPage;
 
-    public static String userId, password;
+//    public static String userId, password;
 
     public RegisterPageSteps() {
         driver = Hooks.openAndQuitBrowser();
@@ -31,12 +34,14 @@ public class RegisterPageSteps {
 
     @Then("^Get userId$")
     public void getUserId() {
-        userId = registerPage.getUserIdFromTableRow(driver);
+        String userId = registerPage.getUserIdFromTableRow(driver);
+        ContextInit.getClassContext().setContext(Context.USER_ID, userId);
     }
 
     @Then("^Get password$")
     public void getPassword() {
-        password = registerPage.getPasswordFromTableRow(driver);
+        String password = registerPage.getPasswordFromTableRow(driver);
+        ContextInit.getClassContext().setContext(Context.PASSWORD, password);
     }
 
     @When("^Open login page$")
