@@ -12,6 +12,8 @@ public class LoginPageSteps {
 
     WebDriver driver;
     LoginPage loginPage;
+//    private String userId = "mngr421526";
+//    private String password = "urEpuzU";
     public static String loginPageUrl;
 
     public LoginPageSteps() {
@@ -27,12 +29,15 @@ public class LoginPageSteps {
 
     @When("^Input userid$")
     public void inputUserid() {
-        loginPage.inputToUserIdTextbox(driver, RegisterPageSteps.userId);
+//        loginPage.inputToUserIdTextbox(driver, RegisterPageSteps.userId);
+//          loginPage.inputToUserIdTextbox(driver, userId);
+        loginPage.inputToUserIdTextbox(driver, (String) ContextInit.getClassContext().getContext(Context.USER_ID));
     }
 
     @When("^Input password$")
     public void inputPassword() {
-        loginPage.inputToPasswordTextbox(driver, RegisterPageSteps.password);
+//        loginPage.inputToPasswordTextbox(driver, RegisterPageSteps.password);
+        loginPage.inputToPasswordTextbox(driver, (String) ContextInit.getClassContext().getContext(Context.PASSWORD));
     }
 
     @And("^Click login button$")

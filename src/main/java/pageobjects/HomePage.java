@@ -11,7 +11,7 @@ public class HomePage extends BasePage {
         this.driver = driver;
     }
 
-    public boolean isHomePageHeadingDisplayed(WebDriver driver, String message) {
+    public boolean isHomePageHeadingDisplayed(WebDriver driver) {
         waitForElementVisible(driver, HomePageUI.HOME_PAGE_HEADING);
         return isElementDisplayed(driver,  HomePageUI.HOME_PAGE_HEADING);
     }

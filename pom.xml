@@ -15,6 +15,7 @@
         <selenium.version>3.141.59</selenium.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.build.directory>target</project.build.directory>
     </properties>
 
     <dependencies>
@@ -44,6 +45,13 @@
             <version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>info.cukes</groupId>-->
+<!--            <artifactId>cucumber-picocontainer</artifactId>-->
+<!--            <version>1.2.5</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>info.cukes</groupId>
@@ -75,11 +83,13 @@
             <artifactId>cucumber-reporting</artifactId>
             <version>3.20.0</version>
         </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.22</version>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -102,8 +112,13 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.18.1</version>
                 <configuration>
+                    <parallel>classes</parallel>
+                    <forkCount>3C</forkCount>
+                    <threadCount>3</threadCount>
+                    <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
                     <includes>
-                        <include>**/*/cucumberOptions/TestRunner.java</include>
+                        <include>**/cucumberOptions/TestRunner*.java</include>
+<!--                        <include>**/cucumberOptions/TestRunner.java</include>-->
                     </includes>
                 </configuration>
             </plugin>
@@ -112,7 +127,7 @@
             <plugin>
                 <groupId>net.masterthought</groupId>
                 <artifactId>maven-cucumber-reporting</artifactId>
-                <version>3.10.0</version>
+                <version>5.7.0</version>
                 <executions>
                     <execution>
                         <id>execution</id>
@@ -122,8 +137,11 @@
                         </goals>
                         <configuration>
                             <projectName>Cucumber Maven Sample Project</projectName>
+                            <inputDirectory>${project.build.directory}/site</inputDirectory>
                             <outputDirectory>${project.build.directory}/site/cucumber-reporting</outputDirectory>
-                            <cucumberOutput>${project.build.directory}/site/cucumber.json</cucumberOutput>
+                            <jsonFiles>
+                                <param>**/*.json</param>
+                            </jsonFiles>
                         </configuration>
                     </execution>
                 </executions>

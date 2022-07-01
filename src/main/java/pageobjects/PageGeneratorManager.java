@@ -29,4 +29,7 @@ public class PageGeneratorManager {
         return new LoginPage(driver);
     }
 
+    public CommonPage getCommonPageSteps(WebDriver driver) {
+        return new CommonPage(driver);
+    }
 }

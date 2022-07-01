@@ -431,6 +431,11 @@ public abstract class BasePage {
         jsExecutor.executeScript("arguments[0].removeAttribute('" + attributeRemove + "');", getElement(driver, locator));
     }
 
+    protected void removeAttributeInDOM(WebDriver driver, String locator, String attributeRemove, String... dynamicValues) {
+        jsExecutor = (JavascriptExecutor) driver;
+        jsExecutor.executeScript("arguments[0].removeAttribute('" + attributeRemove + "');", getElement(driver, getDynamicXpath(locator, dynamicValues)));
+    }
+
     protected void changeAttribute(WebDriver driver, String locator, String attribute, String attributeValue) {
         jsExecutor = (JavascriptExecutor) driver;
         jsExecutor.executeScript("arguments[0].setAttribute('" + attribute + "', '" + attributeValue + "')", getElement(driver, locator));
